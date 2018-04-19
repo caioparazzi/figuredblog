@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use MongoDB\Client as Mongo;
-use MongoDB\BSON\ObjectId as Mid;
 
-class PostController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('create');
+        $collection = $this->connectMongo();
+        $posts = [];
+
+        if($collection){
+            $posts = $this->retrieveLatestPosts($collection);
+        }
+        
+        return view('admin',["posts"=>$posts]);
     }
 
     /**
@@ -36,20 +42,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $collection = $this->connectMongo();
-
-        $title = $request->get('title');
-        $body = $request->get('body');
-
-        $post = [
-            "title"=> $title,
-            "body" => $body
-        ];
-
-        $collection->insertOne($post);
-
-        echo "Success";
-
+        //
     }
 
     /**
@@ -94,11 +87,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $collection = $this->connectMongo();
-
-        $collection->deleteOne( ["_id" => new Mid($id)] );
-
-        //return view('admin');
+        //
     }
 
     /**
@@ -110,5 +99,17 @@ class PostController extends Controller
     {
         $collection = (new Mongo)->main->posts;
         return $collection;
+    }
+
+    /**
+     * Return latest posts from database.
+     *
+     * @param  int  $amount
+     * @param  \MongoDB\MongoCollection $collection
+     * @return array
+     */
+    public function retrieveLatestPosts($collection, $amount = 5)
+    {
+        return $collection->find([],[ 'limit' => $amount ]);
     }
 }

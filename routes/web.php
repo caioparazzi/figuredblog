@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+ Route::resource('/','HomeController');
  Route::resource('posts','PostController');
+ Route::resource('admin','AdminController');
