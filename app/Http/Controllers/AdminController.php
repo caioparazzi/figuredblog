@@ -26,7 +26,7 @@ class AdminController extends Controller
         if($collection){
             $posts = (new MainController)->retrieveLatestPosts($collection);
         }
-        
+
         $count = $collection->count($posts);
         return view('admin',["posts"=>$posts,"amount"=>$count]);
     }

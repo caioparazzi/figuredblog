@@ -32,12 +32,13 @@ class MainController extends Controller
     {
         $currentPath= Route::getFacadeRoot()->current()->uri();
         $author = "";
-        if($currentPath == "" && Logged::check()){
+        if(($currentPath == "" || strpos("admin", $currentPath) !== false) && Logged::check()){
             $author = Logged::user()->name;
         }
         if(strpos("admin", $currentPath) !== false || strpos("search", $currentPath) !== false){
             $amount=100;
         }
+
         if($author==""){
             return $collection->find([],[ 'limit' => $amount ]);
         }
