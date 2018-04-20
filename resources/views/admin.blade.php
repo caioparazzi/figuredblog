@@ -4,11 +4,10 @@
     <!-- Main Content -->
     <div class="container">
       <div class="row">
-        <h1>All Posts</h1>
+        <h1>Hello {{Auth::user()->name}}!</h1>
+      </div>
+      <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="row">
-            <h2>These are all your posts:</h2>
-          </div>
           @if($amount > 0)
             @foreach ($posts as $post)
               <div class="post-preview">

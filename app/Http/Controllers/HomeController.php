@@ -15,15 +15,12 @@ class HomeController extends Controller
     {
         $collection = $this->connectMongo();
         $posts = [];
-        $logged = false;
-        if(Logged::check()){
-            $logged = true;
-        }
+
         if($collection){
             $posts = $this->retrieveLatestPosts($collection);
         }
         
-        return view('index',["posts"=>$posts, "logged"=>$logged]);
+        return view('index',["posts"=>$posts]);
     }
     /**
      * Show the form for creating a new resource.
@@ -102,8 +99,37 @@ class HomeController extends Controller
      * @param  \MongoDB\MongoCollection $collection
      * @return array
      */
-    public function retrieveLatestPosts($collection, $amount = 5)
+    public function retrieveLatestPosts($collection, $amount = 3, $author="")
     {
-        return $collection->find([],[ 'limit' => $amount ]);
+        if($author==""){
+            return $collection->find([],[ 'limit' => $amount ]);
+        }
+        else{
+            return $collection->find(["author"=>$author],[ 'limit' => $amount ]);
+        }
+    }
+
+    /**
+     * Display more posts.
+     * If author name included on request, gathers his posts
+     *
+     * @param string $author
+     * @return \Illuminate\Http\Response
+     */
+    public function morePosts($author="")
+    {
+        $collection = $this->connectMongo();
+        $posts = [];
+
+        if($collection){
+            if($author==""){
+                $posts = $this->retrieveLatestPosts($collection,100);
+            }
+            else{
+                $posts = $this->retrieveLatestPosts($collection,100,$author);
+            }
+        }
+        
+        return view('index',["posts"=>$posts]);
     }
 }

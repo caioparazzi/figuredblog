@@ -16,13 +16,13 @@
               </h3>
             </a>
             <p class="post-meta">Posted by
-              <a href="#">{{$post['author']}}</a>
+              <a href="/moreposts/{{$post['author']}}">{{$post['author']}}</a>
               on {{date('d/m/Y', strtotime($post['date']))}}</p>
           </div>
           @endforeach
           <!-- Pager -->
           <div class="clearfix">
-            <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            <a class="btn btn-primary float-right" href="/moreposts">More Posts &rarr;</a>
           </div>
         </div>
       </div>

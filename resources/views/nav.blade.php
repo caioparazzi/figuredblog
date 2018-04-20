@@ -13,7 +13,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/admin">Admin Area</a>
             </li>
-            @if($logged)
+            @if(Auth::check())
             <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </li>

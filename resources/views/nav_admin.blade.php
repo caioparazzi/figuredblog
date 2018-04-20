@@ -8,7 +8,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" style="color:#000" href="/admin">All posts</a>
+              <a class="nav-link" style="color:#000" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color:#000" href="/admin">Your posts</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" style="color:#000" href="/admin/posts">Add new post</a>

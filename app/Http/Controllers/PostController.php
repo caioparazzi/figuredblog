@@ -72,12 +72,8 @@ class PostController extends Controller
     public function show($id)
     {
         $collection = $this->connectMongo();
-        $logged = false;
-        if(Logged::check()){
-            $logged = true;
-        }
         $post = $collection->findOne(["_id" => new Mid($id)]);
-        return view('post', ["post"=>$post,"logged"=>$logged]);
+        return view('post', ["post"=>$post]);
     }
 
     /**

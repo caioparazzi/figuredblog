@@ -108,7 +108,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Return latest posts from database.
+     * Return latest posts from database. (only posts of that specific user)
      *
      * @param  int  $amount
      * @param  \MongoDB\MongoCollection $collection
@@ -116,6 +116,6 @@ class AdminController extends Controller
      */
     public function retrieveLatestPosts($collection, $amount = 5)
     {
-        return $collection->find([],[ 'limit' => $amount ]);
+        return $collection->find(["author"=>Logged::user()->name],[ 'limit' => $amount ]);
     }
 }
