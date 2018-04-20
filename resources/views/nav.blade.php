@@ -16,6 +16,11 @@
             <li class="nav-item">
               <a class="nav-link" href="/admin">Admin Area</a>
             </li>
+            @if($logged)
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            @endif
           </ul>
         </div>
       </div>

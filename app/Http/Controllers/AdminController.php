@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use MongoDB\Client as Mongo;
+use Illuminate\Support\Facades\Auth as Logged;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        if(!Logged::check()) 
+        {
+            return redirect('login');
+        }
         $collection = $this->connectMongo();
         $posts = [];
 
@@ -21,7 +26,8 @@ class AdminController extends Controller
             $posts = $this->retrieveLatestPosts($collection);
         }
         
-        return view('admin',["posts"=>$posts]);
+        $count = $collection->count($posts);
+        return view('admin',["posts"=>$posts,"amount"=>$count]);
     }
 
     /**

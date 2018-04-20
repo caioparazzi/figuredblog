@@ -8,10 +8,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" style="color:#000" href="/admin">Posts Index</a>
+              <a class="nav-link" style="color:#000" href="/admin">All posts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" style="color:#000" href="/admin/account">Your account</a>
+              <a class="nav-link" style="color:#000" href="/admin/posts">Add new post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color:#000" href="/logout">Logout</a>
             </li>
           </ul>
         </div>

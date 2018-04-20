@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use MongoDB\Client as Mongo;
+use Illuminate\Support\Facades\Auth as Logged;
 
 class HomeController extends Controller
 {
@@ -16,14 +15,16 @@ class HomeController extends Controller
     {
         $collection = $this->connectMongo();
         $posts = [];
-
+        $logged = false;
+        if(Logged::check()){
+            $logged = true;
+        }
         if($collection){
             $posts = $this->retrieveLatestPosts($collection);
         }
         
-        return view('index',["posts"=>$posts]);
+        return view('index',["posts"=>$posts, "logged"=>$logged]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -33,7 +34,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -44,7 +44,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *
@@ -55,7 +54,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -66,7 +64,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -78,7 +75,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -89,7 +85,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Connect to Mongodb.
      *
@@ -100,7 +95,6 @@ class HomeController extends Controller
         $collection = (new Mongo)->main->posts;
         return $collection;
     }
-
     /**
      * Return latest posts from database.
      *
@@ -112,5 +106,4 @@ class HomeController extends Controller
     {
         return $collection->find([],[ 'limit' => $amount ]);
     }
-
 }
