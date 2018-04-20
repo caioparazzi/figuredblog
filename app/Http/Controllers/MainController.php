@@ -31,7 +31,7 @@ class MainController extends Controller
     public function retrieveLatestPosts($collection, $amount = 3, $author="")
     {
         $currentPath= Route::getFacadeRoot()->current()->uri();
-        $author = "";
+        
         if(($currentPath == "" || strpos("admin", $currentPath) !== false) && Logged::check()){
             $author = Logged::user()->name;
         }
