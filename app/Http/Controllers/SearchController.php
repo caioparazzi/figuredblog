@@ -22,9 +22,9 @@ class SearchController extends Controller
         }
         $collection = (new MainController)->connectMongo();
         $posts = [];
-
+        $reg = new MongoRegex($search, 'i');
         if($collection){
-            $posts = $collection->find(["body"=> new MongoRegex($search, 'i')]);
+            $posts = $collection->find(["body"=> $reg]);
         }
         return view('index',["posts"=>$posts]);
     }
