@@ -17,7 +17,7 @@
                   </h2>
                 </a>
                 <p class="post-meta">Posted by
-                  <a href="#">{{$post['author']}}</a>
+                  <strong>{{$post['author']}}</strong>
                   on {{date('d/m/Y', strtotime($post['date']))}}</p>
               </div>
             <div>
