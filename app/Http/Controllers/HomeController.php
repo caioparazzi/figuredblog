@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use MongoDB\Client as Mongo;
 use Illuminate\Support\Facades\Auth as Logged;
+use App\Http\Controllers\MainController as MainController;
 
 class HomeController extends Controller
 {
@@ -13,11 +14,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
         $posts = [];
 
         if($collection){
-            $posts = $this->retrieveLatestPosts($collection);
+            $posts = (new MainController)->retrieveLatestPosts($collection);
         }
         
         return view('index',["posts"=>$posts]);
@@ -82,32 +83,6 @@ class HomeController extends Controller
     {
         //
     }
-    /**
-     * Connect to Mongodb.
-     *
-     * @return \MongoDB\MongoCollection
-     */
-    public function connectMongo()
-    {
-        $collection = (new Mongo)->main->posts;
-        return $collection;
-    }
-    /**
-     * Return latest posts from database.
-     *
-     * @param  int  $amount
-     * @param  \MongoDB\MongoCollection $collection
-     * @return array
-     */
-    public function retrieveLatestPosts($collection, $amount = 3, $author="")
-    {
-        if($author==""){
-            return $collection->find([],[ 'limit' => $amount ]);
-        }
-        else{
-            return $collection->find(["author"=>$author],[ 'limit' => $amount ]);
-        }
-    }
 
     /**
      * Display more posts.
@@ -118,15 +93,15 @@ class HomeController extends Controller
      */
     public function morePosts($author="")
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
         $posts = [];
 
         if($collection){
             if($author==""){
-                $posts = $this->retrieveLatestPosts($collection,100);
+                $posts = (new MainController)->retrieveLatestPosts($collection,100);
             }
             else{
-                $posts = $this->retrieveLatestPosts($collection,100,$author);
+                $posts = (new MainController)->retrieveLatestPosts($collection,100,$author);
             }
         }
         

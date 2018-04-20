@@ -2,33 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use MongoDB\Client as Mongo;
-use Illuminate\Support\Facades\Auth as Logged;
 use App\Http\Controllers\MainController as MainController;
-
-class AdminController extends Controller
+use Illuminate\Http\Request;
+use MongoDB\BSON\Regex as MongoRegex;
+ 
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Response $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        if(!Logged::check()) 
-        {
-            return redirect('login');
+    public function index(Request $request)
+    {   
+        $search = $request->get("search");
+        if(empty($search)){
+            return redirect('/');
         }
         $collection = (new MainController)->connectMongo();
         $posts = [];
 
         if($collection){
-            $posts = (new MainController)->retrieveLatestPosts($collection);
+            $posts = $collection->find(["body"=> new MongoRegex($search, 'i')]);
         }
-        
-        $count = $collection->count($posts);
-        return view('admin',["posts"=>$posts,"amount"=>$count]);
+        return view('index',["posts"=>$posts]);
     }
 
     /**

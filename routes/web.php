@@ -16,6 +16,8 @@ Route::resource('/','HomeController');
 Route::resource('admin/posts','PostController');
 Route::resource('post','PostController');
 Route::resource('admin','AdminController');
+Route::resource('search','SearchController');
+
 Route::get('moreposts/{author?}', 'HomeController@morePosts');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();

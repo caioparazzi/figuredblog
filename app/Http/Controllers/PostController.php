@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use MongoDB\Client as Mongo;
 use MongoDB\BSON\ObjectId as Mid;
 use Illuminate\Support\Facades\Auth as Logged;
-
+use App\Http\Controllers\MainController as MainController;
 
 class PostController extends Controller
 {
@@ -42,7 +42,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
 
         $title = $request->get('title');
         $subtitle = $request->get('subtitle');
@@ -71,7 +71,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
         $post = $collection->findOne(["_id" => new Mid($id)]);
         return view('post', ["post"=>$post]);
     }
@@ -84,7 +84,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
 
         $post = $collection->findOne(["_id" => new Mid($id)]);
         return view('edit', ["post"=>$post]);
@@ -99,7 +99,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
         $title = $request->get('title');
         $subtitle = $request->get('subtitle');
         $body = $request->get('postbody');
@@ -128,21 +128,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $collection = $this->connectMongo();
+        $collection = (new MainController)->connectMongo();
 
         $collection->deleteOne( ["_id" => new Mid($id)] );
 
         //return view('admin');
     }
 
-    /**
-     * Connect to Mongodb.
-     *
-     * @return \MongoDB\MongoCollection
-     */
-    public function connectMongo()
-    {
-        $collection = (new Mongo)->main->posts;
-        return $collection;
-    }
 }

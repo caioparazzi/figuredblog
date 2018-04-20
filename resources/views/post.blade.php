@@ -15,6 +15,7 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             {!!$post->body!!}
+            <hr>
             <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator"></div>
           </div> 
         </div>
