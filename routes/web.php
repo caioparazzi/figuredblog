@@ -16,7 +16,6 @@
  Route::resource('admin/posts','PostController');
  Route::resource('post','PostController');
  Route::resource('admin','AdminController');
- Route::resource('login','LoginController');
  Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 

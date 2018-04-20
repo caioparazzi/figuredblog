@@ -5,16 +5,11 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-          <div class="panel-heading">Login</div>
+          <h2>Login</h2>
 
           <div class="panel-body">
             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
               @csrf
-              @if(session()->has('login_error'))
-                <div class="alert alert-success">
-                  {{ session()->get('login_error') }}
-                </div>
-              @endif
               <div class="form-group{{ $errors->has('identity') ? ' has-error' : '' }}">
                 <label for="identity" class="col-md-4 control-label">Email or Username</label>
 
