@@ -103,7 +103,7 @@ class PostController extends Controller
         $title = $request->get('title');
         $subtitle = $request->get('subtitle');
         $body = $request->get('postbody');
-        $author = "Admin";
+        $author = Logged::user()->name;
         $date = date('Y-m-d');
         $post = [
             "title"=> $title,

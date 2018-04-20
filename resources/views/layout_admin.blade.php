@@ -24,7 +24,6 @@
   <body>
   	@include('nav_admin')
   	@yield('content')
-  	<hr>
     <!-- Bootstrap core JavaScript -->
     <script src="{{asset('/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

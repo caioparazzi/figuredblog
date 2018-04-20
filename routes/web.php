@@ -12,12 +12,12 @@
 */
 
 
- Route::resource('/','HomeController');
- Route::resource('admin/posts','PostController');
- Route::resource('post','PostController');
- Route::resource('admin','AdminController');
- Route::get('moreposts/{author?}', 'HomeController@morePosts');
- Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::resource('/','HomeController');
+Route::resource('admin/posts','PostController');
+Route::resource('post','PostController');
+Route::resource('admin','AdminController');
+Route::get('moreposts/{author?}', 'HomeController@morePosts');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Auth::routes();
 
 $this->get('/verify-user/{code}', 'Auth\RegisterController@activateUser')->name('activate.user');
